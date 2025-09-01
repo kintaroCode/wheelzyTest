@@ -27,3 +27,19 @@ public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
 //b.-> haria solo un savechages();
 //c.-> No es necesario llamar a todos los clientes de la base, solo lo involucrados en las facturas. 
 
+public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
+{
+  var listInvoiceIds = invoices.select(x.CustomerId.HasValue).distinc.toList()
+  
+  var customer = dbContext.Customers.where(c => listInvoiceIds.Contains(c.CustomerId));
+  
+  foreach (var invoice in invoices)
+  {
+    if(customers.TryGetValue(invoice.CustomerId.Value, out var customer)){      
+      customer.Balance -= invoice.Total;
+    }
+  } 
+
+   dbContext.SaveChanges();
+}
+
