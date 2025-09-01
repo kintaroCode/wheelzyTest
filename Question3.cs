@@ -22,7 +22,8 @@ public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
 //¿problema principal?
 //esta todo dentro de un foreach
 
-//a -> sacaria la llamda de "var customer = dbContext.Customers.SingleOrDefault(invoice.CustomerId.Value)"  y "dbContext.SaveChanges" fuera del foreach para no llamar dos veces en cada     ocasiona a base de datos ;
+//a -> sacaria la llamda de "var customer = dbContext.Customers.SingleOrDefault(invoice.CustomerId.Value)" 
+//y "dbContext.SaveChanges" fuera del foreach para no llamar dos veces en cada  ocasiona a base de datos ;
 //b.-> haria solo un savechages();
 //c.-> No es necesario llamar a todos los clientes de la base, solo lo involucrados en las facturas. 
 
