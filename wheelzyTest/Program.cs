@@ -13,7 +13,7 @@ using(var context = new wheelzyTest.Modelos.WheelzyDbsContext())
             Model = c.Car.Model,
             Submodel = c.Car.Submodel,
             BuyerName = c.Buyer.Name,
-            Amount = c.Buyer.Amounts.OrderByDescending(a => a.BuyerId).FirstOrDefault(),
+            Amount = c.Buyer.Amounts.FirstOrDefault(a => a.LocationId == c.Car.LocationId),
             c.Status,
             c.StatusDate,
         }).ToList();   
@@ -29,7 +29,7 @@ using(var context = new wheelzyTest.Modelos.WheelzyDbsContext())
             Model: {element.Model},
             Submodel: {element.Submodel}, 
             BuyerName: {element.BuyerName}, 
-            Amount: {element.Amount}, 
+            Amount: {element.Amount?.Amount1}, 
             Status: {element.Status}, 
             StatusDate: {element.StatusDate}           
             """);
