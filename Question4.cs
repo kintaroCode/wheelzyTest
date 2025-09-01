@@ -17,5 +17,30 @@ public async Task<List<OrderDTO>> GetOrders(DateTime? dateFrom, DateTime?
                                             List<int> statusIds, bool? isActive)
 {
 // your implementation
-   var orders = dbContext.order.Where( x => x.
+// iria de los mas general a lo mas especifico CurstgomerIds, statusIds, IsActive, datefrom, DateTo
+   var orders = dbContext.order;
+    if(customerIds is not null)
+      orders = orders.where(x=> customerIds.contains(x.customerId))
+
+    if(statusIds is not null)
+      orders = orders.where(x=> statusIds.contains(x.statusIds))
+
+    if(isActive == true)
+      orders =orders.where(x => x.isActive == isActive)
+      
+    if(dateFrom is not null)
+      orders = orders.Where(x => x.date >= dateFrom)
+
+    if(dateTo is not null)
+       orders = orders.Where(x => x.date <= dateTo)
+      
+  // retornar en OrderDTO que puede ser objeto predefinido
+      return await orders.select(x => new orderDTO{
+           OrderId = x.OrderId,
+           Date = x.Date,
+           CustomerId = x.CustomerId,
+           StatusId = x.StatusId,
+           IsActive = x.IsActive
+      }
+  
 }
